@@ -22,7 +22,7 @@ public class Platform : MonoBehaviour
         {
             _passed = true;
             _rigidbody.isKinematic = false;
-            Invoke(nameof(Deactivate), 3f);
+            Invoke(nameof(Deactivate), 2f);
             OnPassedPlatform?.Invoke();
         }
     }

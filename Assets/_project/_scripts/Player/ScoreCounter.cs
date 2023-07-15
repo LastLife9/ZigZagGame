@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class ScoreCounter : MonoBehaviour
 {
+    public static ScoreCounter Instance;
+
     private int _currentScore = 0;
     private int _bestScore = 0;
     private int _playCount = 0;
@@ -18,6 +20,8 @@ public class ScoreCounter : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
+
         if (PlayerPrefs.HasKey(_bestScoreKey))
         {
             _bestScore = PlayerPrefs.GetInt(_bestScoreKey);
@@ -33,14 +37,10 @@ public class ScoreCounter : MonoBehaviour
     private void OnEnable()
     {
         PlayerController.OnStartMove += ResetCurrent;
-        PlayerController.OnStartMove += IncreasePlayedGames;
-        PlayerController.OnChangeTurn += IncreaseCurrentScore;
     }
     private void OnDisable()
     {
         PlayerController.OnStartMove -= ResetCurrent;
-        PlayerController.OnStartMove -= IncreasePlayedGames;
-        PlayerController.OnChangeTurn -= IncreaseCurrentScore;
     }
 
     private void ResetCurrent()
@@ -50,7 +50,7 @@ public class ScoreCounter : MonoBehaviour
         UpdateDisplay();
     }
 
-    private void IncreaseCurrentScore()
+    public void IncreaseCurrentScore()
     {
         _currentScore++;
         if(_bestScore < _currentScore)
@@ -61,7 +61,7 @@ public class ScoreCounter : MonoBehaviour
         SaveScores();
         UpdateDisplay();
     }
-    private void IncreasePlayedGames()
+    public void IncreasePlayedGames()
     {
         _playCount++;
 

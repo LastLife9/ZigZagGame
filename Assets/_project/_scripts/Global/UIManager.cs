@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject _menuPanel;
     [SerializeField] private GameObject _fallPanel;
     [SerializeField] private GameObject _pausePanel;
+
+    [SerializeField] private Toggle _soundToggle;
 
     private void OnEnable()
     {
@@ -21,6 +24,24 @@ public class UIManager : MonoBehaviour
         PlayerController.OnStartMove -= ShowGamePanel;
         PlayerController.OnFallDown -= HideGamePanel;
         PlayerController.OnFallDown -= ShowFallPanel;
+    }
+
+    private void OnApplicationQuit()
+    {
+        PlayerPrefs.SetInt("Sound", _soundToggle.isOn ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    private void OnApplicationPause(bool pause)
+    {
+        PlayerPrefs.SetInt("Sound", _soundToggle.isOn ? 1 : 0);
+        PlayerPrefs.Save();
+    }
+
+    private void Awake()
+    {
+        if (PlayerPrefs.HasKey("Sound"))
+            _soundToggle.isOn = PlayerPrefs.GetInt("Sound") == 1 ? true : false;
     }
 
     public void GameRestart()
@@ -44,6 +65,10 @@ public class UIManager : MonoBehaviour
     public void OnAutopilotChange(bool state)
     {
         Autopilot.OnChangeState?.Invoke(state);
+    }
+    public void OnSoundState(bool state)
+    {
+        SoundManager.OnChangeState?.Invoke(state);
     }
 
     private void ShowFallPanel()

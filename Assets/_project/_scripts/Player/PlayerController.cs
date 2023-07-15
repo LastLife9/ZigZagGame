@@ -74,6 +74,7 @@ public class PlayerController : MonoBehaviour
     {
         _moveRight = !_moveRight;
 
+        ScoreCounter.Instance.IncreaseCurrentScore();
         OnChangeTurn?.Invoke();
     }
 
@@ -81,6 +82,7 @@ public class PlayerController : MonoBehaviour
     {
         _canMove = true;
 
+        ScoreCounter.Instance.IncreasePlayedGames();
         OnStartMove?.Invoke();
     }
 
