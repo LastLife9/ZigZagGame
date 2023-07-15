@@ -17,6 +17,7 @@ public class PlayerController : MonoBehaviour
     private int _groundLayer = 1 << 6;
     private float _checkGroundDist = 2f;
 
+    [SerializeField] private AudioClip _failClip;
     private Transform _transform;
     private Rigidbody _rigidbody;
     private PointerEventData _eventDataCurrentPosition;
@@ -61,6 +62,7 @@ public class PlayerController : MonoBehaviour
         _rigidbody.AddForce(_moveDirection * Speed, ForceMode.Impulse);
         _canMove = false;
 
+        SoundManager.Instance.Play(_failClip);
         OnFallDown?.Invoke();
     }
 
