@@ -4,12 +4,16 @@ using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
-    [SerializeField] private GameObject _gamePanel;
-    [SerializeField] private GameObject _menuPanel;
-    [SerializeField] private GameObject _fallPanel;
-    [SerializeField] private GameObject _pausePanel;
-
-    [SerializeField] private Toggle _soundToggle;
+    [SerializeField] 
+    private GameObject _gamePanel;
+    [SerializeField] 
+    private GameObject _menuPanel;
+    [SerializeField] 
+    private GameObject _fallPanel;
+    [SerializeField] 
+    private GameObject _pausePanel;
+    [SerializeField] 
+    private Toggle _soundToggle;
 
     private void OnEnable()
     {

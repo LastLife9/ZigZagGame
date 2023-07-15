@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
 {
-    [SerializeField] private int _platformsMaxCount = 30;
-    [SerializeField] [Range(0f, 100f)] private float _bonusCount;
-    [SerializeField] private GameObject _startPlatform;
     private const string _platformTag = "Platform";
     private const string _bonusTag = "Bonus";
+    [SerializeField] 
+    private int _platformsMaxCount = 30;
+    [SerializeField] [Range(0f, 100f)] 
+    private float _bonusCount;
     private bool _spawnRight;
 
+    [SerializeField]
+    private GameObject _startPlatform;
     private Vector3 _spawnPosition = Vector3.zero;
     private Queue<GameObject> _spawnedPlatforms = new Queue<GameObject>();
     private ObjectPooling _objectPooling;

@@ -6,8 +6,10 @@ public class Autopilot : MonoBehaviour
     public static Action<bool> OnChangeState { get; set; }
     private PlayerController _playerController;
 
-    [SerializeField] private Transform _rightObserver;
-    [SerializeField] private Transform _leftObserver;
+    [SerializeField] 
+    private Transform _rightObserver;
+    [SerializeField] 
+    private Transform _leftObserver;
 
     private int _groundLayer = 1 << 6;
     private float _checkGroundDist = 2f;

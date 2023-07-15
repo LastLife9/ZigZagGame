@@ -3,8 +3,7 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-	public static SoundManager Instance;
-
+	public static SoundManager Instance { get; set; }
 	public static Action<bool> OnChangeState { get; set; }
 
 	public AudioSource EffectsSource;
@@ -14,6 +13,10 @@ public class SoundManager : MonoBehaviour
 	public float HighPitchRange = 1.05f;
 
 	private float _comboPitch;
+	[SerializeField]
+	private float _comboTime = 1f;
+	[SerializeField]
+	private int _comboCount = 3;
 
 	private bool _play = true;
 
@@ -56,7 +59,7 @@ public class SoundManager : MonoBehaviour
     {
 		if (!_play) return;
 
-		float pitchStep = (HighPitchRange - LowPitchRange) / 3f;
+		float pitchStep = (HighPitchRange - LowPitchRange) / _comboCount;
 
 		EffectsSource.pitch = Mathf.Clamp(_comboPitch, LowPitchRange, HighPitchRange);
 		EffectsSource.clip = clip;
@@ -65,7 +68,7 @@ public class SoundManager : MonoBehaviour
 		_comboPitch += pitchStep;
 
 		CancelInvoke();
-		Invoke(nameof(ReducePitch), 1f);
+		Invoke(nameof(ReducePitch), _comboTime);
 	}
 
 	private void ReducePitch()

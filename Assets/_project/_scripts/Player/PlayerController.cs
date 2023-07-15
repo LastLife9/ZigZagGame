@@ -5,19 +5,12 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
-    public static PlayerController Instance;
     public static Action OnStartMove { get; set; }
     public static Action OnFallDown { get; set; }
     public static Action OnChangeTurn { get; set; }
 
-    [SerializeField] private float _speed = 3f;
-    [SerializeField] private float _minYValue = -3f;
-    public float Speed { get => _speed;}
-
-    private int _groundLayer = 1 << 6;
-    private float _checkGroundDist = 2f;
-
-    [SerializeField] private AudioClip _failClip;
+    [SerializeField] 
+    private AudioClip _failClip;
     private Transform _transform;
     private Rigidbody _rigidbody;
     private PointerEventData _eventDataCurrentPosition;
@@ -27,12 +20,18 @@ public class PlayerController : MonoBehaviour
     private bool _canMove = false;
     private bool _moveRight = true;
 
+    private int _groundLayer = 1 << 6;
+    [SerializeField]
+    private float _speed = 3f;
+    [SerializeField]
+    private float _minYValue = -3f;
+    private float _checkGroundDist = 2f;
+    public float Speed { get => _speed; }
     private Vector3 _moveDirection => _moveRight ? Vector3.right : Vector3.forward;
     private bool _checkGround => Physics.Raycast(_transform.position, Vector3.down, _checkGroundDist, _groundLayer);
 
     private void Awake()
     {
-        Instance = this;
         _transform = transform;
         _rigidbody = GetComponent<Rigidbody>();
     }

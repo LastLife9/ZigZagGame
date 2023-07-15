@@ -5,18 +5,21 @@ using UnityEngine;
 
 public class ScoreCounter : MonoBehaviour
 {
-    public static ScoreCounter Instance;
+    public static ScoreCounter Instance { get; set; }
+
+    private const string _bestScoreKey = "best_score";
+    private const string _playCountKey = "games_played";
 
     private int _currentScore = 0;
     private int _bestScore = 0;
     private int _playCount = 0;
 
-    private const string _bestScoreKey = "best_score";
-    private const string _playCountKey = "games_played";
-
-    [SerializeField] private TextMeshProUGUI[] _currentScoreLabel;
-    [SerializeField] private TextMeshProUGUI[] _bestScoreLabel;
-    [SerializeField] private TextMeshProUGUI[] _playedCountLabel;
+    [SerializeField] 
+    private TextMeshProUGUI[] _currentScoreLabel;
+    [SerializeField] 
+    private TextMeshProUGUI[] _bestScoreLabel;
+    [SerializeField] 
+    private TextMeshProUGUI[] _playedCountLabel;
 
     private void Awake()
     {

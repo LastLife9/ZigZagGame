@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Bonus : MonoBehaviour
 {
-    [SerializeField] private AudioClip _takeAudio;
-    [SerializeField] private int BonusCount = 2;
+    [SerializeField] 
+    private AudioClip _takeAudio;
+    [SerializeField] 
+    private int _bonusCount = 2;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -20,7 +22,7 @@ public class Bonus : MonoBehaviour
         gameObject.SetActive(false);
         SoundManager.Instance.ComboSoundEffect(_takeAudio);
 
-        for (int i = 0; i < BonusCount; i++)
+        for (int i = 0; i < _bonusCount; i++)
         {
             ScoreCounter.Instance.IncreaseCurrentScore();
         }

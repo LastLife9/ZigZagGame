@@ -4,9 +4,7 @@ using UnityEngine;
 public class Platform : MonoBehaviour
 {
     public static Action OnPassedPlatform { get; set; }
-
     private Rigidbody _rigidbody;
-
     private bool _passed = false;
 
     private void Awake()
