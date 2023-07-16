@@ -7,6 +7,7 @@ public class SoundManager : MonoBehaviour
 	public static Action<bool> OnChangeState { get; set; }
 
 	public AudioSource EffectsSource;
+	public AudioSource ComboEffectsSource;
 	public AudioSource MusicSource;
 
 	public float LowPitchRange = .95f;
@@ -61,9 +62,9 @@ public class SoundManager : MonoBehaviour
 
 		float pitchStep = (HighPitchRange - LowPitchRange) / _comboCount;
 
-		EffectsSource.pitch = Mathf.Clamp(_comboPitch, LowPitchRange, HighPitchRange);
-		EffectsSource.clip = clip;
-		EffectsSource.Play();
+		ComboEffectsSource.pitch = Mathf.Clamp(_comboPitch, LowPitchRange, HighPitchRange);
+		ComboEffectsSource.clip = clip;
+		ComboEffectsSource.Play();
 
 		_comboPitch += pitchStep;
 

@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
@@ -11,10 +9,10 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] 
     private AudioClip _failClip;
+    [SerializeField]
+    private AudioClip _switchTurnClip;
     private Transform _transform;
     private Rigidbody _rigidbody;
-    private PointerEventData _eventDataCurrentPosition;
-    private List<RaycastResult> _results;
 
     private bool _canInput = true;
     private bool _canMove = false;
@@ -44,7 +42,7 @@ public class PlayerController : MonoBehaviour
             return;
         if (!_checkGround) 
             FallDown();
-        if (_canInput && Input.GetMouseButtonDown(0) && !IsOverUI()) 
+        if (_canInput && Input.GetMouseButtonDown(0) && !Helpers.IsOverUI()) 
             ChangeTurn();
 
         Move();
@@ -76,6 +74,7 @@ public class PlayerController : MonoBehaviour
         _moveRight = !_moveRight;
 
         ScoreCounter.Instance.IncreaseCurrentScore();
+        SoundManager.Instance.Play(_switchTurnClip);
         OnChangeTurn?.Invoke();
     }
 
@@ -85,14 +84,6 @@ public class PlayerController : MonoBehaviour
 
         ScoreCounter.Instance.IncreasePlayedGames();
         OnStartMove?.Invoke();
-    }
-
-    private bool IsOverUI()
-    {
-        _eventDataCurrentPosition = new PointerEventData(EventSystem.current) { position = Input.mousePosition };
-        _results = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(_eventDataCurrentPosition, _results);
-        return _results.Count > 0;
     }
 
     public bool IsMoveRight()

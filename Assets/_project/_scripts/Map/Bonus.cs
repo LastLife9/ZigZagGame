@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Bonus : MonoBehaviour
@@ -20,6 +18,8 @@ public class Bonus : MonoBehaviour
     private void TakeBonus()
     {
         gameObject.SetActive(false);
+
+        PopupManager.Instance.SpawnText(transform, "+" + _bonusCount.ToString());
         SoundManager.Instance.ComboSoundEffect(_takeAudio);
 
         for (int i = 0; i < _bonusCount; i++)
